@@ -82,7 +82,7 @@ const LoginModal = () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button outline label="Continuer avec Google" icon={FcGoogle} onClick={() => {}} />
-      <Button outline label="Continuer avec Github" icon={AiFillGithub} onClick={() => {}}/>
+      <Button outline label="Continuer avec Github" icon={AiFillGithub} onClick={() => signIn('github')}/>
 
       <div className=" text-neutral-500 text-center mt-4 font-light">
         <p>Vous avez déjà un compte ? <span onClick={() => {}} className="text-neutral-800 cursor-pointer hover:underline"> Connexion</span></p>
