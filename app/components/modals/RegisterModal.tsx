@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 import Modal from "./Modal";
 import Input from "../inputs/Input";
@@ -17,6 +18,8 @@ import { signIn } from "next-auth/react";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
+
   const [isLoading, setIsLoading] = useState(false);
 
   // React-use-form
@@ -42,6 +45,11 @@ const RegisterModal = () => {
         setIsLoading(false);
       });
   };
+
+  const onToggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -82,7 +90,7 @@ const RegisterModal = () => {
       <Button outline label="Continuer avec Github" icon={AiFillGithub} onClick={() => signIn('github')}/>
 
       <div className=" text-neutral-500 text-center mt-4 font-light">
-        <p>Vous avez déjà un compte ? <span onClick={() => {}} className="text-neutral-800 cursor-pointer hover:underline"> Connexion</span></p>
+        <p>Vous avez déjà un compte ? <span onClick={onToggle} className="text-neutral-800 cursor-pointer hover:underline"> Connexion</span></p>
       </div>
     </div>
   )
