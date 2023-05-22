@@ -13,6 +13,7 @@ import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
+import Input from "../inputs/Input";
 
 enum STEPS {
   CATEGORY = 0,
@@ -26,6 +27,7 @@ enum STEPS {
 const RentModal = () => {
   const rentModal = useRentModal();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
 
   const {
@@ -171,6 +173,17 @@ const RentModal = () => {
           onChange={(value) => setCustomValue('imageSrc', value)}
           value={imageSrc}
         />
+      </div>
+    )
+  }
+  
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title="Comment décririez-vous votre lieu ?" subtitle="Court et agréable fonctionne le mieux !" />
+        <Input id="title" label="Titre" disabled={isLoading} register={register} errors={errors} required/>
+        <hr />
+        <Input id="description" label="Description" disabled={isLoading} register={register} errors={errors} required/>
       </div>
     )
   }
