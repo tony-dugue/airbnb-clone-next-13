@@ -36,7 +36,9 @@ const RegisterModal = () => {
     axios
       .post("/api/register", data)
       .then(() => {
+        toast.success("Compte crée avec succès!");
         registerModal.onClose();
+        loginModal.onOpen();
       })
       .catch((error) => {
         toast.error("une erreur s'est produite");
@@ -49,7 +51,7 @@ const RegisterModal = () => {
   const onToggle = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
-  }, [loginModal, registerModal])
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -86,14 +88,33 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button outline label="Continuer avec Google" icon={FcGoogle} onClick={() => signIn('google')} />
-      <Button outline label="Continuer avec Github" icon={AiFillGithub} onClick={() => signIn('github')}/>
+      <Button
+        outline
+        label="Continuer avec Google"
+        icon={FcGoogle}
+        onClick={() => signIn("google")}
+      />
+      <Button
+        outline
+        label="Continuer avec Github"
+        icon={AiFillGithub}
+        onClick={() => signIn("github")}
+      />
 
       <div className=" text-neutral-500 text-center mt-4 font-light">
-        <p>Vous avez déjà un compte ? <span onClick={onToggle} className="text-neutral-800 cursor-pointer hover:underline"> Connexion</span></p>
+        <p>
+          Vous avez déjà un compte ?{" "}
+          <span
+            onClick={onToggle}
+            className="text-neutral-800 cursor-pointer hover:underline"
+          >
+            {" "}
+            Connexion
+          </span>
+        </p>
       </div>
     </div>
-  )
+  );
 
   return (
     <Modal

@@ -3,9 +3,10 @@ import ClientOnly from "@/app/components/ClientOnly";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import getReservations from "@/app/actions/getReservations";
-import TripsClient from "./TripsClient";
 
-const TripsPage = async () => {
+import ReservationsClient from "./ReservationsClient";
+
+const ReservationsPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -16,19 +17,19 @@ const TripsPage = async () => {
     );
   }
 
-  const reservations = await getReservations({ userId: currentUser.id });
+  const reservations = await getReservations({ authorId: currentUser.id });
 
   if (reservations.length === 0) {
     return (
       <ClientOnly>
-        <EmptyState title="Aucun voyage trouvé" subtitle="Il semble que vous n'ayez réservé aucun voyage." />
+        <EmptyState title="Aucune réservation trouvée" subtitle="Il semble que vous n'ayez aucune réservation sur vos annonces." />
       </ClientOnly>
     );
   }
 
   return (
     <ClientOnly>
-      <TripsClient
+      <ReservationsClient
         reservations={reservations}
         currentUser={currentUser}
       />
@@ -36,4 +37,4 @@ const TripsPage = async () => {
   );
 };
 
-export default TripsPage;
+export default ReservationsPage;
